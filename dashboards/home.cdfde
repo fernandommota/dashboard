@@ -1020,6 +1020,29 @@
   "layout" : {
     "rows" : [
       {
+        "id" : "8005ced8-62eb-d752-7f3a-e8bf16535976",
+        "type" : "LayoutResourceCode",
+        "typeDesc" : "Resource",
+        "parent" : "UnIqEiD",
+        "properties" : [
+          {
+            "name" : "name",
+            "value" : "style",
+            "type" : "Id"
+          },
+          {
+            "name" : "resourceCode",
+            "value" : ".container{\n    width: 99% !important;\n} \n\n.table-responsive {\n     overflow: auto;\n} ",
+            "type" : "Resource"
+          },
+          {
+            "name" : "resourceType",
+            "value" : "Css",
+            "type" : "Label"
+          }
+        ]
+      },
+      {
         "id" : "e6b94391-0838-7a2c-68ab-8fb63893816c",
         "type" : "LayoutResourceFile",
         "typeDesc" : "Resource",
