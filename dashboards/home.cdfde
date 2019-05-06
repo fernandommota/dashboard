@@ -1,0 +1,1973 @@
+{
+  "components" : {
+    "rows" : [
+      {
+        "id" : "STANDARDCOMPONENTS",
+        "name" : "Standard",
+        "parent" : "UnIqEiD",
+        "properties" : [
+          {
+            "name" : "Group",
+            "type" : "Label",
+            "value" : "Standard"
+          }
+        ],
+        "type" : "Label",
+        "typeDesc" : "\u003Ci\u003EGroup\u003C/i\u003E"
+      },
+      {
+        "id" : "bbfa4ffe-2c99-6dbc-2a4b-734d1253a96a",
+        "parent" : "STANDARDCOMPONENTS",
+        "properties" : [
+          {
+            "name" : "name",
+            "type" : "Id",
+            "value" : "columnChartComponent"
+          },
+          {
+            "name" : "listeners",
+            "type" : "Listeners",
+            "value" : "[]"
+          },
+          {
+            "name" : "parameters",
+            "type" : "ValuesArray",
+            "value" : "[]"
+          },
+          {
+            "name" : "resultvar",
+            "type" : "Result",
+            "value" : ""
+          },
+          {
+            "name" : "dataSource",
+            "type" : "Datasource",
+            "value" : "ds_column_chart"
+          },
+          {
+            "name" : "asynchronousMode",
+            "type" : "Boolean",
+            "value" : "true"
+          },
+          {
+            "name" : "priority",
+            "type" : "Integer",
+            "value" : "10"
+          },
+          {
+            "name" : "refreshPeriod",
+            "type" : "Integer",
+            "value" : ""
+          },
+          {
+            "name" : "htmlObject",
+            "type" : "HtmlObject",
+            "value" : "${h:columnChartObject}"
+          },
+          {
+            "name" : "executeAtStart",
+            "type" : "Boolean",
+            "value" : "true"
+          },
+          {
+            "name" : "preExecution",
+            "type" : "JavaScript",
+            "value" : "function preExecution(){ \n    var obj = this;\n    \n    obj.parameters = [\n        [\u0022YEAR\u0022,\u0022YEAR\u0022]\n    ];\n    \n    obj.listeners = [\u0027YEAR\u0027];\n} "
+          },
+          {
+            "name" : "postExecution",
+            "type" : "JavaScript",
+            "value" : ""
+          },
+          {
+            "name" : "postFetch",
+            "type" : "JavaScript",
+            "value" : "function column(result){ \n    //console.log(result);\n    \n    var obj = this;\n    \n    var series = [];\n    var categories = [];\n    var series =[];\n    \n    var serie = {\n        name : \u0022Quantity\u0022,\n        data: []\n    };\n    \n    $.each(result.resultset, function( rowIndex, rowValue ) {\n        var category = rowValue[0];\n        var value = rowValue[1];\n        categories.push(category);\n        serie.data.push(value);\n    });\n    \n    series.push(serie);\n   \n   \n    componentHighChartOptions = {\n        chart: {\n            type: \u0027column\u0027,\n            height: 300\n    \t},\n    \ttitle: {\n    \t\ttext: \u0027SALES BY QUANTITY\u0027\n    \t},\n        subtitle: {\n            enabled : false,\n    \t},\n    \txAxis: {\n    \t\tcategories: categories\n    \t},\n    \tyAxis: {\n            type: \u0027logarithmic\u0027,\n            //minorTickInterval: 0.1,\n           title: {\n                enabled: true,\n                text: \u0027\u0027\n            },\n    \t    labels: {\n                enabled: true,\n                formatter: function () {\n                    return Util.integerFormatWithoutZeroForNullValues(this.value);\n                }\n            },\n            stackLabels: {\n                style: {\n                    color: \u0027black\u0027,\n                    fontSize: 14\n                },\n                enabled: true,\n                formatter: function () {\n                    return Util.integerFormatWithoutZeroForNullValues(this.total);\n                }\n            }\n    \t},\n        legend: {\n        \tenabled : true,\n            /*\n            align: \u0027right\u0027,\n            verticalAlign: \u0027top\u0027,\n            layout: \u0027vertical\u0027,\n            x: 0,\n            y: 100\n            */\n    \t},\n        credits: {\n            enabled : true\n        },\n    \ttooltip: {\n            crosshairs: true,\n            useHTML: true,\n    \t\tformatter: function () {\n                let message = \u0027\u003Cb\u003E\u0027 +this.x +\u0027\u003C/b\u003E\u003Cbr/\u003E\u0027 + this.series.name+ \u0027: \u003Cb\u003E\u0027+Util.integerFormatWithoutZeroForNullValues(this.y)+\u0027\u003C/b\u003E\u003Cbr/\u003E\u0027;\n                    \n                return message;\n            }\n    \t},\n    \tplotOptions: {\n            column: {\n                dataLabels: {\n                    enabled: true,\n                    color: \u0027#000\u0027,\n                    style: {\n                        fontSize:11,\n                        fontWeight: \u0027bolder\u0027,\n                    },\n                    formatter: function() {return Util.integerFormatWithoutZeroForNullValues(this.y);},\n                    //inside: true,\n                    //rotation: 270\n                },\n                pointPadding: 0.1,\n                groupPadding: 0.1,\n            }\n    \t},\n        series: series\n    };\n    \n    // Create the chart\n    myChart = Highcharts.chart(\n        this.htmlObject, \n        componentHighChartOptions\n    );\n} "
+          },
+          {
+            "name" : "preChange",
+            "type" : "JavaScript",
+            "value" : ""
+          },
+          {
+            "name" : "postChange",
+            "type" : "JavaScript",
+            "value" : ""
+          },
+          {
+            "name" : "tooltip",
+            "type" : "Html",
+            "value" : ""
+          }
+        ],
+        "rowName" : "Query Component",
+        "type" : "ComponentsQuery",
+        "typeDesc" : "Query Component"
+      },
+      {
+        "id" : "944f0c68-8030-3e7c-0b73-2de5b21aba97",
+        "parent" : "STANDARDCOMPONENTS",
+        "properties" : [
+          {
+            "name" : "name",
+            "type" : "Id",
+            "value" : "pieChartComponent"
+          },
+          {
+            "name" : "listeners",
+            "type" : "Listeners",
+            "value" : "[]"
+          },
+          {
+            "name" : "parameters",
+            "type" : "ValuesArray",
+            "value" : "[]"
+          },
+          {
+            "name" : "resultvar",
+            "type" : "Result",
+            "value" : ""
+          },
+          {
+            "name" : "dataSource",
+            "type" : "Datasource",
+            "value" : "ds_pie_chart"
+          },
+          {
+            "name" : "asynchronousMode",
+            "type" : "Boolean",
+            "value" : "true"
+          },
+          {
+            "name" : "priority",
+            "type" : "Integer",
+            "value" : "10"
+          },
+          {
+            "name" : "refreshPeriod",
+            "type" : "Integer",
+            "value" : ""
+          },
+          {
+            "name" : "htmlObject",
+            "type" : "HtmlObject",
+            "value" : "${h:pieChartObject}"
+          },
+          {
+            "name" : "executeAtStart",
+            "type" : "Boolean",
+            "value" : "true"
+          },
+          {
+            "name" : "preExecution",
+            "type" : "JavaScript",
+            "value" : "function preExecution(){ \n    var obj = this;\n    \n    obj.parameters = [\n        [\u0022YEAR\u0022,\u0022YEAR\u0022]\n    ];\n    \n    obj.listeners = [\u0027YEAR\u0027];\n} "
+          },
+          {
+            "name" : "postExecution",
+            "type" : "JavaScript",
+            "value" : ""
+          },
+          {
+            "name" : "postFetch",
+            "type" : "JavaScript",
+            "value" : "function chart(result){\n    var mySelf = this;\n    \n    var categories = [];\n    var values = [];\n    var series = [];\n    \n    $.each(result.resultset, function( index, value ) {\n        categories.push(value[0]);\n        values.push(value[1]);\n    });\n\n    series.push({\n        labels: categories,\n        values: values,\n        name: \u0022Quantity\u0022,\n        type: \u0027pie\u0027\n    });\n\n    var layout = {\n      title: \u0027SALES BY QUANTITY\u0027,\n      height: 300,\n      showlegend: true\n    };\n           \n\n    Plotly.newPlot(mySelf.htmlObject, series, layout);\n    var myPlot = document.getElementById(mySelf.htmlObject);\n} "
+          },
+          {
+            "name" : "preChange",
+            "type" : "JavaScript",
+            "value" : ""
+          },
+          {
+            "name" : "postChange",
+            "type" : "JavaScript",
+            "value" : ""
+          },
+          {
+            "name" : "tooltip",
+            "type" : "Html",
+            "value" : ""
+          }
+        ],
+        "rowName" : "Query Component",
+        "type" : "ComponentsQuery",
+        "typeDesc" : "Query Component"
+      },
+      {
+        "id" : "4828d595-13d4-b6aa-5c21-24d2e27eb723",
+        "parent" : "STANDARDCOMPONENTS",
+        "properties" : [
+          {
+            "name" : "name",
+            "type" : "Id",
+            "value" : "tableComponent"
+          },
+          {
+            "name" : "expandContainerObject",
+            "type" : "HtmlTarget",
+            "value" : ""
+          },
+          {
+            "name" : "listeners",
+            "type" : "Listeners",
+            "value" : "[]"
+          },
+          {
+            "name" : "oLanguage",
+            "type" : "JavaScript",
+            "value" : ""
+          },
+          {
+            "name" : "language",
+            "type" : "JavaScript",
+            "value" : ""
+          },
+          {
+            "name" : "colFormats",
+            "type" : "ColFormatsArray",
+            "value" : "[]"
+          },
+          {
+            "name" : "colHeaders",
+            "type" : "ColHeadersArray",
+            "value" : "[]"
+          },
+          {
+            "name" : "colSortable",
+            "type" : "ColSortableArray",
+            "value" : "[]"
+          },
+          {
+            "name" : "colTypes",
+            "type" : "colTypesCustom",
+            "value" : "[]"
+          },
+          {
+            "name" : "colWidths",
+            "type" : "ColWidthsArray",
+            "value" : "[]"
+          },
+          {
+            "name" : "expandParameters",
+            "type" : "ExpandParameters",
+            "value" : "[]"
+          },
+          {
+            "name" : "parameters",
+            "type" : "ValuesArray",
+            "value" : "[]"
+          },
+          {
+            "name" : "displayLength",
+            "type" : "Integer",
+            "value" : ""
+          },
+          {
+            "name" : "expandOnClick",
+            "type" : "Boolean",
+            "value" : "false"
+          },
+          {
+            "name" : "filter",
+            "type" : "Boolean",
+            "value" : "true"
+          },
+          {
+            "name" : "info",
+            "type" : "Boolean",
+            "value" : "true"
+          },
+          {
+            "name" : "lengthChange",
+            "type" : "Boolean",
+            "value" : "true"
+          },
+          {
+            "name" : "paginate",
+            "type" : "Boolean",
+            "value" : "true"
+          },
+          {
+            "name" : "sort",
+            "type" : "Boolean",
+            "value" : "true"
+          },
+          {
+            "name" : "colSearchable",
+            "type" : "ColSearchableArray",
+            "value" : "[]"
+          },
+          {
+            "name" : "drawCallback",
+            "type" : "JavaScript",
+            "value" : ""
+          },
+          {
+            "name" : "dataSource",
+            "type" : "Datasource",
+            "value" : "ds_table"
+          },
+          {
+            "name" : "sDom",
+            "type" : "JavaScript",
+            "value" : ""
+          },
+          {
+            "name" : "sortBy",
+            "type" : "SortByArray",
+            "value" : "[]"
+          },
+          {
+            "name" : "priority",
+            "type" : "Integer",
+            "value" : "10"
+          },
+          {
+            "name" : "refreshPeriod",
+            "type" : "Integer",
+            "value" : ""
+          },
+          {
+            "name" : "silent",
+            "type" : "Boolean",
+            "value" : "false"
+          },
+          {
+            "name" : "clearsBeforePreExecution",
+            "type" : "Boolean",
+            "value" : "true"
+          },
+          {
+            "name" : "paginationType",
+            "type" : "PaginationType",
+            "value" : "simple_numbers"
+          },
+          {
+            "name" : "tableStyle",
+            "type" : "TableStyle",
+            "value" : "bootstrap"
+          },
+          {
+            "name" : "htmlObject",
+            "type" : "HtmlObject",
+            "value" : "${h:tableObject}"
+          },
+          {
+            "name" : "executeAtStart",
+            "type" : "Boolean",
+            "value" : "true"
+          },
+          {
+            "name" : "paginateServerside",
+            "type" : "Boolean",
+            "value" : "false"
+          },
+          {
+            "name" : "failureCallback",
+            "type" : "JavaScript",
+            "value" : ""
+          },
+          {
+            "name" : "preExecution",
+            "type" : "JavaScript",
+            "value" : "function preExecution(){ \n    var obj = this;\n    \n    obj.parameters = [\n        [\u0022YEAR\u0022,\u0022YEAR\u0022]\n    ];\n    \n    obj.listeners = [\u0027YEAR\u0027];\n} "
+          },
+          {
+            "name" : "postExecution",
+            "type" : "JavaScript",
+            "value" : "function postExecution(){\n    $(\u0027#\u0027 + this.htmlObject +\u0027Table\u0027).parent().addClass(\u0022table-responsive\u0022);\n} "
+          },
+          {
+            "name" : "postFetch",
+            "type" : "JavaScript",
+            "value" : ""
+          },
+          {
+            "name" : "preChange",
+            "type" : "JavaScript",
+            "value" : ""
+          },
+          {
+            "name" : "postChange",
+            "type" : "JavaScript",
+            "value" : ""
+          },
+          {
+            "name" : "extraOptions",
+            "type" : "ExtraOptionsArray",
+            "value" : "[]"
+          },
+          {
+            "name" : "tooltip",
+            "type" : "Html",
+            "value" : ""
+          },
+          {
+            "name" : "clickAction",
+            "type" : "JavaScript",
+            "value" : ""
+          }
+        ],
+        "rowName" : "Table Component",
+        "type" : "ComponentsTable",
+        "typeDesc" : "Table Component"
+      },
+      {
+        "id" : "PARAMETERS",
+        "name" : "Parameters",
+        "type" : "Label",
+        "typeDesc" : "\u003Ci\u003EGroup\u003C/i\u003E",
+        "parent" : "UnIqEiD",
+        "properties" : [
+          {
+            "name" : "Group",
+            "value" : "Parameters",
+            "type" : "Label"
+          }
+        ]
+      },
+      {
+        "id" : "605a20e1-be90-e684-e87d-598c4894b482",
+        "type" : "ComponentsParameter",
+        "typeDesc" : "Simple parameter",
+        "parent" : "PARAMETERS",
+        "properties" : [
+          {
+            "name" : "name",
+            "value" : "YEAR",
+            "type" : "Id"
+          },
+          {
+            "name" : "propertyValue",
+            "value" : "",
+            "type" : "String"
+          },
+          {
+            "name" : "parameterViewRole",
+            "value" : "unused",
+            "type" : "parameterViewRoleCustom"
+          },
+          {
+            "name" : "bookmarkable",
+            "value" : "false",
+            "type" : "Boolean"
+          },
+          {
+            "name" : "public",
+            "value" : "false",
+            "type" : "Boolean"
+          }
+        ],
+        "rowName" : "Simple Parameter"
+      },
+      {
+        "id" : "SELECTORS",
+        "name" : "Selects",
+        "type" : "Label",
+        "typeDesc" : "\u003Ci\u003EGroup\u003C/i\u003E",
+        "parent" : "UnIqEiD",
+        "properties" : [
+          {
+            "name" : "Group",
+            "value" : "Selects",
+            "type" : "Label"
+          }
+        ]
+      },
+      {
+        "id" : "52f5953b-8a34-c60a-cc92-153c129d02cc",
+        "type" : "ComponentsSelectMulti",
+        "typeDesc" : "Multiple Select Component",
+        "parent" : "SELECTORS",
+        "properties" : [
+          {
+            "name" : "name",
+            "value" : "yearFilterComponent",
+            "type" : "Id"
+          },
+          {
+            "name" : "parameter",
+            "value" : "${p:YEAR}",
+            "type" : "Parameter"
+          },
+          {
+            "name" : "listeners",
+            "value" : "[]",
+            "type" : "Listeners"
+          },
+          {
+            "name" : "parameters",
+            "value" : "[]",
+            "type" : "ValuesArray"
+          },
+          {
+            "name" : "externalPlugin",
+            "value" : "",
+            "type" : "externalPluginCustom"
+          },
+          {
+            "name" : "valueAsId",
+            "value" : "false",
+            "type" : "Boolean"
+          },
+          {
+            "name" : "useFirstValue",
+            "value" : "true",
+            "type" : "Boolean"
+          },
+          {
+            "name" : "dataSource",
+            "value" : "ds_year_filter",
+            "type" : "Datasource"
+          },
+          {
+            "name" : "valuesArray",
+            "value" : "[]",
+            "type" : "ValuesArray"
+          },
+          {
+            "name" : "priority",
+            "value" : 5,
+            "type" : "Integer"
+          },
+          {
+            "name" : "refreshPeriod",
+            "value" : "",
+            "type" : "Integer"
+          },
+          {
+            "name" : "size",
+            "value" : "",
+            "type" : "Integer"
+          },
+          {
+            "name" : "htmlObject",
+            "value" : "${h:yearFilterObject}",
+            "type" : "HtmlObject"
+          },
+          {
+            "name" : "executeAtStart",
+            "value" : "true",
+            "type" : "Boolean"
+          },
+          {
+            "name" : "preExecution",
+            "value" : "function preExecution(){\n    var obj = this;\n    \n    obj.postExecution = function f(){\n        BootstrapMultiselectPentahoFilter.postExecutionSelect.call(\n            this\n            // Change to all member propertie of dimension\n            , \u0027[Time].[All Years]\u0027\n            // Change the labels about dimension\n            , \u0027Buscar ano\u0027\n            , \u0027Selecione um ano\u0027\n            , \u0027Todos os anos\u0027\n            , \u0027 - anos selecionados\u0027\n            // end labels about dimension\n        );\n    }\n\n    obj.preChange = function (newChoice){\n        // Change to all member propertie of dimension\n        return BootstrapMultiselectPentahoFilter.preChangeSelect.call(this,  \u0027[Time].[All Years]\u0027, newChoice);  \n    };\n\n    obj.postFetch = function postFetch(result){\n        // configure the option for set the default value of parameter\n        BootstrapMultiselectPentahoFilter.postFetchSelect.call(this, result, \u0027all\u0027);\n    };\n} ",
+            "type" : "JavaScript"
+          },
+          {
+            "name" : "postExecution",
+            "value" : "",
+            "type" : "JavaScript"
+          },
+          {
+            "name" : "postFetch",
+            "value" : "",
+            "type" : "JavaScript"
+          },
+          {
+            "name" : "preChange",
+            "value" : "",
+            "type" : "JavaScript"
+          },
+          {
+            "name" : "postChange",
+            "value" : "",
+            "type" : "JavaScript"
+          },
+          {
+            "name" : "tooltip",
+            "value" : "",
+            "type" : "Html"
+          }
+        ],
+        "rowName" : "Multiple Select Component"
+      }
+    ]
+  },
+  "datasources" : {
+    "rows" : [
+      {
+        "id" : "SQL",
+        "name" : "SQL Queries",
+        "parent" : "UnIqEiD",
+        "properties" : [
+          {
+            "name" : "Group",
+            "type" : "Label",
+            "value" : "SQL Queries"
+          }
+        ],
+        "type" : "Label",
+        "typeDesc" : "\u003Ci\u003EGroup\u003C/i\u003E"
+      },
+      {
+        "id" : "0a56c773-c21a-33cb-c9aa-716d1c31731a",
+        "meta" : "CDA",
+        "meta_conntype" : "sql.jndi",
+        "meta_datype" : "sql",
+        "parent" : "SQL",
+        "properties" : [
+          {
+            "name" : "name",
+            "type" : "Id",
+            "value" : "dummy"
+          },
+          {
+            "name" : "access",
+            "type" : "Access",
+            "value" : "public"
+          },
+          {
+            "name" : "jndi",
+            "type" : "Jndi",
+            "value" : ""
+          },
+          {
+            "name" : "query",
+            "type" : "SqlQuery",
+            "value" : ""
+          },
+          {
+            "name" : "parameters",
+            "type" : "CdaParameters",
+            "value" : "[]"
+          },
+          {
+            "name" : "cdacalculatedcolumns",
+            "type" : "CdaCalculatedColumnsArray",
+            "value" : "[]"
+          },
+          {
+            "name" : "cdacolumns",
+            "type" : "CdaColumnsArray",
+            "value" : "[]"
+          },
+          {
+            "name" : "output",
+            "type" : "IndexArray",
+            "value" : "[]"
+          },
+          {
+            "name" : "outputMode",
+            "type" : "OutputMode",
+            "value" : "include"
+          },
+          {
+            "name" : "cacheKeys",
+            "type" : "CacheKeysValues",
+            "value" : "[]"
+          },
+          {
+            "name" : "cacheDuration",
+            "type" : "Integer",
+            "value" : 3600
+          },
+          {
+            "name" : "cache",
+            "type" : "Boolean",
+            "value" : "true"
+          }
+        ],
+        "type" : "Componentssql_sqlJndi",
+        "typeDesc" : "sql over sqlJndi"
+      },
+      {
+        "id" : "MDX",
+        "name" : "MDX Queries",
+        "parent" : "UnIqEiD",
+        "properties" : [
+          {
+            "name" : "Group",
+            "type" : "Label",
+            "value" : "MDX Queries"
+          }
+        ],
+        "type" : "Label",
+        "typeDesc" : "\u003Ci\u003EGroup\u003C/i\u003E"
+      },
+      {
+        "id" : "c965bc08-5363-c7d3-d72c-27ee6891645e",
+        "meta" : "CDA",
+        "meta_conntype" : "mondrian.jndi",
+        "meta_datype" : "mdx",
+        "parent" : "MDX",
+        "properties" : [
+          {
+            "name" : "name",
+            "type" : "Id",
+            "value" : "ds_year_filter"
+          },
+          {
+            "name" : "access",
+            "type" : "Access",
+            "value" : "public"
+          },
+          {
+            "name" : "jndi",
+            "type" : "Jndi",
+            "value" : "SampleData"
+          },
+          {
+            "name" : "catalog",
+            "type" : "MondrianCatalog",
+            "value" : "mondrian:/SteelWheels"
+          },
+          {
+            "name" : "query",
+            "type" : "CurrentMdxQuery",
+            "value" : "WITH\nMEMBER [Measures].[UNIQUE MEMBER] AS [Time].currentMember.uniqueName\nSET [~ROWS] AS\n    {[Time].[Years].Members}\nSELECT\nNON EMPTY {[Measures].[UNIQUE MEMBER]} ON COLUMNS,\nNON EMPTY [~ROWS] ON ROWS\nFROM [SteelWheelsSales]"
+          },
+          {
+            "name" : "parameters",
+            "type" : "CdaParameters",
+            "value" : "[]"
+          },
+          {
+            "name" : "bandedMode",
+            "type" : "BandedMode",
+            "value" : "compact"
+          },
+          {
+            "name" : "cdacalculatedcolumns",
+            "type" : "CdaCalculatedColumnsArray",
+            "value" : "[]"
+          },
+          {
+            "name" : "cdacolumns",
+            "type" : "CdaColumnsArray",
+            "value" : "[]"
+          },
+          {
+            "name" : "output",
+            "type" : "IndexArray",
+            "value" : "[\u00221\u0022,\u00220\u0022]"
+          },
+          {
+            "name" : "outputMode",
+            "type" : "OutputMode",
+            "value" : "include"
+          },
+          {
+            "name" : "cacheKeys",
+            "type" : "CacheKeysValues",
+            "value" : "[]"
+          },
+          {
+            "name" : "cacheDuration",
+            "type" : "Integer",
+            "value" : 3600
+          },
+          {
+            "name" : "cache",
+            "type" : "Boolean",
+            "value" : "true"
+          }
+        ],
+        "rowName" : "mdx over mondrianJndi",
+        "type" : "Componentsmdx_mondrianJndi",
+        "typeDesc" : "mdx over mondrianJndi"
+      },
+      {
+        "id" : "55aff0dd-7762-40aa-aa7a-ad288a921125",
+        "meta" : "CDA",
+        "meta_conntype" : "mondrian.jndi",
+        "meta_datype" : "mdx",
+        "parent" : "MDX",
+        "properties" : [
+          {
+            "name" : "name",
+            "type" : "Id",
+            "value" : "ds_column_chart"
+          },
+          {
+            "name" : "access",
+            "type" : "Access",
+            "value" : "public"
+          },
+          {
+            "name" : "jndi",
+            "type" : "Jndi",
+            "value" : "SampleData"
+          },
+          {
+            "name" : "catalog",
+            "type" : "MondrianCatalog",
+            "value" : "mondrian:/SteelWheels"
+          },
+          {
+            "name" : "query",
+            "type" : "CurrentMdxQuery",
+            "value" : "WITH\nSET [~ROWS] AS\n    {[Markets].[Country].Members}\nSELECT\nNON EMPTY {[Measures].[Quantity]} ON COLUMNS,\nNON EMPTY [~ROWS] ON ROWS\nFROM [SteelWheelsSales]\nWHERE \n    ({${YEAR}})"
+          },
+          {
+            "name" : "parameters",
+            "type" : "CdaParameters",
+            "value" : "[[\u0022YEAR\u0022,\u0022\u0022,\u0022String\u0022,\u0022\u0022,\u0022\u0022]]"
+          },
+          {
+            "name" : "bandedMode",
+            "type" : "BandedMode",
+            "value" : "compact"
+          },
+          {
+            "name" : "cdacalculatedcolumns",
+            "type" : "CdaCalculatedColumnsArray",
+            "value" : "[]"
+          },
+          {
+            "name" : "cdacolumns",
+            "type" : "CdaColumnsArray",
+            "value" : "[]"
+          },
+          {
+            "name" : "output",
+            "type" : "IndexArray",
+            "value" : "[]"
+          },
+          {
+            "name" : "outputMode",
+            "type" : "OutputMode",
+            "value" : "include"
+          },
+          {
+            "name" : "cacheKeys",
+            "type" : "CacheKeysValues",
+            "value" : "[]"
+          },
+          {
+            "name" : "cacheDuration",
+            "type" : "Integer",
+            "value" : 3600
+          },
+          {
+            "name" : "cache",
+            "type" : "Boolean",
+            "value" : "true"
+          }
+        ],
+        "rowName" : "mdx over mondrianJndi",
+        "type" : "Componentsmdx_mondrianJndi",
+        "typeDesc" : "mdx over mondrianJndi"
+      },
+      {
+        "id" : "10efbcd4-4c05-ff76-5fed-311c73c6c564",
+        "meta" : "CDA",
+        "meta_conntype" : "mondrian.jndi",
+        "meta_datype" : "mdx",
+        "parent" : "MDX",
+        "properties" : [
+          {
+            "name" : "name",
+            "type" : "Id",
+            "value" : "ds_pie_chart"
+          },
+          {
+            "name" : "access",
+            "type" : "Access",
+            "value" : "public"
+          },
+          {
+            "name" : "jndi",
+            "type" : "Jndi",
+            "value" : "SampleData"
+          },
+          {
+            "name" : "catalog",
+            "type" : "MondrianCatalog",
+            "value" : "mondrian:/SteelWheels"
+          },
+          {
+            "name" : "query",
+            "type" : "CurrentMdxQuery",
+            "value" : "WITH\nSET [~ROWS] AS\n    {[Product].[Line].Members}\nSELECT\nNON EMPTY {[Measures].[Quantity]} ON COLUMNS,\nNON EMPTY [~ROWS] ON ROWS\nFROM [SteelWheelsSales]\nWHERE \n    ({${YEAR}})"
+          },
+          {
+            "name" : "parameters",
+            "type" : "CdaParameters",
+            "value" : "[[\u0022YEAR\u0022,\u0022\u0022,\u0022String\u0022,\u0022\u0022,\u0022\u0022]]"
+          },
+          {
+            "name" : "bandedMode",
+            "type" : "BandedMode",
+            "value" : "compact"
+          },
+          {
+            "name" : "cdacalculatedcolumns",
+            "type" : "CdaCalculatedColumnsArray",
+            "value" : "[]"
+          },
+          {
+            "name" : "cdacolumns",
+            "type" : "CdaColumnsArray",
+            "value" : "[]"
+          },
+          {
+            "name" : "output",
+            "type" : "IndexArray",
+            "value" : "[]"
+          },
+          {
+            "name" : "outputMode",
+            "type" : "OutputMode",
+            "value" : "include"
+          },
+          {
+            "name" : "cacheKeys",
+            "type" : "CacheKeysValues",
+            "value" : "[]"
+          },
+          {
+            "name" : "cacheDuration",
+            "type" : "Integer",
+            "value" : 3600
+          },
+          {
+            "name" : "cache",
+            "type" : "Boolean",
+            "value" : "true"
+          }
+        ],
+        "rowName" : "mdx over mondrianJndi",
+        "type" : "Componentsmdx_mondrianJndi",
+        "typeDesc" : "mdx over mondrianJndi"
+      },
+      {
+        "id" : "8493d68b-ed89-6fd1-b0be-b337ccf3002b",
+        "meta" : "CDA",
+        "meta_conntype" : "mondrian.jndi",
+        "meta_datype" : "mdx",
+        "parent" : "MDX",
+        "properties" : [
+          {
+            "name" : "name",
+            "type" : "Id",
+            "value" : "ds_table"
+          },
+          {
+            "name" : "access",
+            "type" : "Access",
+            "value" : "public"
+          },
+          {
+            "name" : "jndi",
+            "type" : "Jndi",
+            "value" : "SampleData"
+          },
+          {
+            "name" : "catalog",
+            "type" : "MondrianCatalog",
+            "value" : "mondrian:/SteelWheels"
+          },
+          {
+            "name" : "query",
+            "type" : "CurrentMdxQuery",
+            "value" : "WITH\nSET [~ROWS_Time_Time] AS\n    {${YEAR}}\nSET [~ROWS_Markets_Markets] AS\n    {[Markets].[Territory].Members}\nSET [~ROWS_Product_Product] AS\n    {[Product].[Line].Members}\nSELECT\nNON EMPTY {[Measures].[Quantity], [Measures].[Sales]} ON COLUMNS,\nNON EMPTY NonEmptyCrossJoin([~ROWS_Time_Time], NonEmptyCrossJoin([~ROWS_Markets_Markets], [~ROWS_Product_Product])) ON ROWS\nFROM [SteelWheelsSales]"
+          },
+          {
+            "name" : "parameters",
+            "type" : "CdaParameters",
+            "value" : "[[\u0022YEAR\u0022,\u0022\u0022,\u0022String\u0022,\u0022\u0022,\u0022\u0022]]"
+          },
+          {
+            "name" : "bandedMode",
+            "type" : "BandedMode",
+            "value" : "compact"
+          },
+          {
+            "name" : "cdacalculatedcolumns",
+            "type" : "CdaCalculatedColumnsArray",
+            "value" : "[]"
+          },
+          {
+            "name" : "cdacolumns",
+            "type" : "CdaColumnsArray",
+            "value" : "[]"
+          },
+          {
+            "name" : "output",
+            "type" : "IndexArray",
+            "value" : "[]"
+          },
+          {
+            "name" : "outputMode",
+            "type" : "OutputMode",
+            "value" : "include"
+          },
+          {
+            "name" : "cacheKeys",
+            "type" : "CacheKeysValues",
+            "value" : "[]"
+          },
+          {
+            "name" : "cacheDuration",
+            "type" : "Integer",
+            "value" : 3600
+          },
+          {
+            "name" : "cache",
+            "type" : "Boolean",
+            "value" : "true"
+          }
+        ],
+        "rowName" : "mdx over mondrianJndi",
+        "type" : "Componentsmdx_mondrianJndi",
+        "typeDesc" : "mdx over mondrianJndi"
+      }
+    ]
+  },
+  "filename" : "/system/dashboard/dashboards/home.cdfde",
+  "layout" : {
+    "rows" : [
+      {
+        "id" : "e6b94391-0838-7a2c-68ab-8fb63893816c",
+        "type" : "LayoutResourceFile",
+        "typeDesc" : "Resource",
+        "parent" : "UnIqEiD",
+        "properties" : [
+          {
+            "name" : "name",
+            "value" : "Plotly",
+            "type" : "Id"
+          },
+          {
+            "name" : "resourceFile",
+            "value" : "../../../../api/repos/dashboard/static/custom/js/libs/plotly/plotly-shim.js",
+            "type" : "ResourceFile"
+          },
+          {
+            "name" : "resourceType",
+            "value" : "Javascript",
+            "type" : "Label"
+          }
+        ]
+      },
+      {
+        "id" : "37e4523d-9c2e-35a6-771e-48745f2d02db",
+        "parent" : "UnIqEiD",
+        "properties" : [
+          {
+            "name" : "name",
+            "type" : "Id",
+            "value" : "Util"
+          },
+          {
+            "name" : "resourceFile",
+            "type" : "ResourceFile",
+            "value" : "../../../../api/repos/dashboard/static/custom/js/util.js"
+          },
+          {
+            "name" : "resourceType",
+            "type" : "Label",
+            "value" : "Javascript"
+          }
+        ],
+        "type" : "LayoutResourceFile",
+        "typeDesc" : "Resource"
+      },
+      {
+        "id" : "1ea02a75-be12-412d-ad67-4a6efcfb3ed7",
+        "parent" : "UnIqEiD",
+        "properties" : [
+          {
+            "name" : "name",
+            "type" : "Id",
+            "value" : "BootstrapMultiselectPentahoFilter"
+          },
+          {
+            "name" : "resourceFile",
+            "type" : "ResourceFile",
+            "value" : "../../../../api/repos/dashboard/static/custom/js/libs/bootstrap-multiselect-pentaho-filter/js/bootstrap-multiselect-pentaho-filter.js"
+          },
+          {
+            "name" : "resourceType",
+            "type" : "Label",
+            "value" : "Javascript"
+          }
+        ],
+        "type" : "LayoutResourceFile",
+        "typeDesc" : "Resource"
+      },
+      {
+        "id" : "0d28b59d-6cbd-d046-f2e4-d8e29881c3c9",
+        "parent" : "UnIqEiD",
+        "properties" : [
+          {
+            "name" : "name",
+            "type" : "Id",
+            "value" : "Highcharts"
+          },
+          {
+            "name" : "resourceFile",
+            "type" : "ResourceFile",
+            "value" : "../../../../api/repos/dashboard/static/custom/js/libs/highcharts/highcharts_shim.js"
+          },
+          {
+            "name" : "resourceType",
+            "type" : "Label",
+            "value" : "Javascript"
+          }
+        ],
+        "type" : "LayoutResourceFile",
+        "typeDesc" : "Resource"
+      },
+      {
+        "id" : "3abe1945-d96d-76ec-eabf-733bb1db9a41",
+        "type" : "LayoutRow",
+        "typeDesc" : "Row",
+        "parent" : "UnIqEiD",
+        "properties" : [
+          {
+            "name" : "name",
+            "value" : "filter_row",
+            "type" : "Id"
+          },
+          {
+            "name" : "height",
+            "value" : "",
+            "type" : "Integer"
+          },
+          {
+            "name" : "backgroundColor",
+            "value" : "",
+            "type" : "Color"
+          },
+          {
+            "name" : "roundCorners",
+            "value" : "",
+            "type" : "RoundCorners"
+          },
+          {
+            "name" : "textAlign",
+            "value" : "",
+            "type" : "TextAlign"
+          },
+          {
+            "name" : "cssClass",
+            "value" : "",
+            "type" : "String"
+          }
+        ]
+      },
+      {
+        "id" : "dec15235-9a72-0036-c8fe-96aa2120acd5",
+        "type" : "LayoutBootstrapColumn",
+        "typeDesc" : "Column",
+        "parent" : "3abe1945-d96d-76ec-eabf-733bb1db9a41",
+        "properties" : [
+          {
+            "name" : "name",
+            "value" : "yearFilterObject",
+            "type" : "Id"
+          },
+          {
+            "name" : "bootstrapExtraSmall",
+            "value" : "12",
+            "type" : "String"
+          },
+          {
+            "name" : "bootstrapSmall",
+            "value" : "",
+            "type" : "String"
+          },
+          {
+            "name" : "bootstrapMedium",
+            "value" : "",
+            "type" : "String"
+          },
+          {
+            "name" : "bootstrapLarge",
+            "value" : "",
+            "type" : "String"
+          },
+          {
+            "name" : "bootstrapCssClass",
+            "value" : "",
+            "type" : "String"
+          },
+          {
+            "name" : "height",
+            "value" : "",
+            "type" : "Integer"
+          },
+          {
+            "name" : "backgroundColor",
+            "value" : "",
+            "type" : "Color"
+          },
+          {
+            "name" : "roundCorners",
+            "value" : "",
+            "type" : "RoundCorners"
+          },
+          {
+            "name" : "textAlign",
+            "value" : "",
+            "type" : "TextAlign"
+          },
+          {
+            "name" : "cssClass",
+            "value" : "pull-right",
+            "type" : "String"
+          }
+        ]
+      },
+      {
+        "id" : "fd4f70fe-1275-3fb4-efd5-ffccc0555023",
+        "type" : "LayoutRow",
+        "typeDesc" : "Row",
+        "parent" : "UnIqEiD",
+        "properties" : [
+          {
+            "name" : "name",
+            "value" : "space",
+            "type" : "Id"
+          },
+          {
+            "name" : "height",
+            "value" : "30",
+            "type" : "Integer"
+          },
+          {
+            "name" : "backgroundColor",
+            "value" : "",
+            "type" : "Color"
+          },
+          {
+            "name" : "roundCorners",
+            "value" : "",
+            "type" : "RoundCorners"
+          },
+          {
+            "name" : "textAlign",
+            "value" : "",
+            "type" : "TextAlign"
+          },
+          {
+            "name" : "cssClass",
+            "value" : "",
+            "type" : "String"
+          }
+        ]
+      },
+      {
+        "id" : "00866de5-585c-d8a1-4d8d-972df2f0af62",
+        "type" : "LayoutRow",
+        "typeDesc" : "Row",
+        "parent" : "UnIqEiD",
+        "properties" : [
+          {
+            "name" : "name",
+            "value" : "first_row",
+            "type" : "Id"
+          },
+          {
+            "name" : "height",
+            "value" : "",
+            "type" : "Integer"
+          },
+          {
+            "name" : "backgroundColor",
+            "value" : "",
+            "type" : "Color"
+          },
+          {
+            "name" : "roundCorners",
+            "value" : "",
+            "type" : "RoundCorners"
+          },
+          {
+            "name" : "textAlign",
+            "value" : "",
+            "type" : "TextAlign"
+          },
+          {
+            "name" : "cssClass",
+            "value" : "",
+            "type" : "String"
+          }
+        ]
+      },
+      {
+        "id" : "7b2a6136-3f98-6986-2457-610e0febb05f",
+        "type" : "LayoutBootstrapColumn",
+        "typeDesc" : "Column",
+        "parent" : "00866de5-585c-d8a1-4d8d-972df2f0af62",
+        "properties" : [
+          {
+            "name" : "name",
+            "value" : "left_column",
+            "type" : "Id"
+          },
+          {
+            "name" : "bootstrapExtraSmall",
+            "value" : "12",
+            "type" : "String"
+          },
+          {
+            "name" : "bootstrapSmall",
+            "value" : "",
+            "type" : "String"
+          },
+          {
+            "name" : "bootstrapMedium",
+            "value" : "6",
+            "type" : "String"
+          },
+          {
+            "name" : "bootstrapLarge",
+            "value" : "",
+            "type" : "String"
+          },
+          {
+            "name" : "bootstrapCssClass",
+            "value" : "",
+            "type" : "String"
+          },
+          {
+            "name" : "height",
+            "value" : "",
+            "type" : "Integer"
+          },
+          {
+            "name" : "backgroundColor",
+            "value" : "",
+            "type" : "Color"
+          },
+          {
+            "name" : "roundCorners",
+            "value" : "",
+            "type" : "RoundCorners"
+          },
+          {
+            "name" : "textAlign",
+            "value" : "",
+            "type" : "TextAlign"
+          },
+          {
+            "name" : "cssClass",
+            "value" : "",
+            "type" : "String"
+          }
+        ]
+      },
+      {
+        "id" : "80f14a39-5251-a163-112a-3fb603d3ad7f",
+        "parent" : "7b2a6136-3f98-6986-2457-610e0febb05f",
+        "properties" : [
+          {
+            "name" : "name",
+            "type" : "Id",
+            "value" : "column_chart"
+          },
+          {
+            "name" : "height",
+            "type" : "Integer",
+            "value" : ""
+          },
+          {
+            "name" : "roundCorners",
+            "type" : "RoundCorners",
+            "value" : ""
+          },
+          {
+            "name" : "cssClass",
+            "type" : "String",
+            "value" : ""
+          },
+          {
+            "name" : "bootstrapPanelStyle",
+            "type" : "bootstrapPanelStyleCustom",
+            "value" : "panel-default"
+          }
+        ],
+        "type" : "BootstrapPanel",
+        "typeDesc" : "Bootstrap Panel"
+      },
+      {
+        "id" : "22765b90-4d5a-70f7-3797-af453b9104bc",
+        "parent" : "80f14a39-5251-a163-112a-3fb603d3ad7f",
+        "properties" : [
+          {
+            "name" : "name",
+            "type" : "Id",
+            "value" : ""
+          },
+          {
+            "name" : "roundCorners",
+            "type" : "RoundCorners",
+            "value" : ""
+          },
+          {
+            "name" : "textAlign",
+            "type" : "TextAlign",
+            "value" : ""
+          },
+          {
+            "name" : "cssClass",
+            "type" : "String",
+            "value" : ""
+          }
+        ],
+        "type" : "BootstrapPanelHeader",
+        "typeDesc" : "Panel Header"
+      },
+      {
+        "id" : "8d2e3291-23ff-6230-6653-45eee802f224",
+        "parent" : "80f14a39-5251-a163-112a-3fb603d3ad7f",
+        "properties" : [
+          {
+            "name" : "name",
+            "type" : "Id",
+            "value" : "columnChartObject"
+          },
+          {
+            "name" : "roundCorners",
+            "type" : "RoundCorners",
+            "value" : ""
+          },
+          {
+            "name" : "textAlign",
+            "type" : "TextAlign",
+            "value" : ""
+          },
+          {
+            "name" : "cssClass",
+            "type" : "String",
+            "value" : ""
+          }
+        ],
+        "type" : "BootstrapPanelBody",
+        "typeDesc" : "Panel Body"
+      },
+      {
+        "id" : "acd94819-8327-cc8e-7c8a-7b19911efb1c",
+        "parent" : "80f14a39-5251-a163-112a-3fb603d3ad7f",
+        "properties" : [
+          {
+            "name" : "name",
+            "type" : "Id",
+            "value" : ""
+          },
+          {
+            "name" : "roundCorners",
+            "type" : "RoundCorners",
+            "value" : ""
+          },
+          {
+            "name" : "textAlign",
+            "type" : "TextAlign",
+            "value" : ""
+          },
+          {
+            "name" : "cssClass",
+            "type" : "String",
+            "value" : ""
+          }
+        ],
+        "type" : "BootstrapPanelFooter",
+        "typeDesc" : "Panel Footer"
+      },
+      {
+        "id" : "0761f4f1-ea36-485f-912a-f07511b68d74",
+        "type" : "LayoutBootstrapColumn",
+        "typeDesc" : "Column",
+        "parent" : "00866de5-585c-d8a1-4d8d-972df2f0af62",
+        "properties" : [
+          {
+            "name" : "name",
+            "value" : "right_column",
+            "type" : "Id"
+          },
+          {
+            "name" : "bootstrapExtraSmall",
+            "value" : "12",
+            "type" : "String"
+          },
+          {
+            "name" : "bootstrapSmall",
+            "value" : "",
+            "type" : "String"
+          },
+          {
+            "name" : "bootstrapMedium",
+            "value" : "6",
+            "type" : "String"
+          },
+          {
+            "name" : "bootstrapLarge",
+            "value" : "",
+            "type" : "String"
+          },
+          {
+            "name" : "bootstrapCssClass",
+            "value" : "",
+            "type" : "String"
+          },
+          {
+            "name" : "height",
+            "value" : "",
+            "type" : "Integer"
+          },
+          {
+            "name" : "backgroundColor",
+            "value" : "",
+            "type" : "Color"
+          },
+          {
+            "name" : "roundCorners",
+            "value" : "",
+            "type" : "RoundCorners"
+          },
+          {
+            "name" : "textAlign",
+            "value" : "",
+            "type" : "TextAlign"
+          },
+          {
+            "name" : "cssClass",
+            "value" : "",
+            "type" : "String"
+          }
+        ]
+      },
+      {
+        "id" : "3a1ef6d2-f503-aa52-b897-3628d1ef15b9",
+        "parent" : "0761f4f1-ea36-485f-912a-f07511b68d74",
+        "properties" : [
+          {
+            "name" : "name",
+            "type" : "Id",
+            "value" : "pie_chart"
+          },
+          {
+            "name" : "height",
+            "type" : "Integer",
+            "value" : ""
+          },
+          {
+            "name" : "roundCorners",
+            "type" : "RoundCorners",
+            "value" : ""
+          },
+          {
+            "name" : "cssClass",
+            "type" : "String",
+            "value" : ""
+          },
+          {
+            "name" : "bootstrapPanelStyle",
+            "type" : "bootstrapPanelStyleCustom",
+            "value" : "panel-default"
+          }
+        ],
+        "type" : "BootstrapPanel",
+        "typeDesc" : "Bootstrap Panel"
+      },
+      {
+        "id" : "7263240c-232c-2915-705e-cb37fe61d0e1",
+        "parent" : "3a1ef6d2-f503-aa52-b897-3628d1ef15b9",
+        "properties" : [
+          {
+            "name" : "name",
+            "type" : "Id",
+            "value" : ""
+          },
+          {
+            "name" : "roundCorners",
+            "type" : "RoundCorners",
+            "value" : ""
+          },
+          {
+            "name" : "textAlign",
+            "type" : "TextAlign",
+            "value" : ""
+          },
+          {
+            "name" : "cssClass",
+            "type" : "String",
+            "value" : ""
+          }
+        ],
+        "type" : "BootstrapPanelHeader",
+        "typeDesc" : "Panel Header"
+      },
+      {
+        "id" : "d5039139-da3d-4b30-1605-e1a1e7847f66",
+        "parent" : "3a1ef6d2-f503-aa52-b897-3628d1ef15b9",
+        "properties" : [
+          {
+            "name" : "name",
+            "type" : "Id",
+            "value" : ""
+          },
+          {
+            "name" : "roundCorners",
+            "type" : "RoundCorners",
+            "value" : ""
+          },
+          {
+            "name" : "textAlign",
+            "type" : "TextAlign",
+            "value" : ""
+          },
+          {
+            "name" : "cssClass",
+            "type" : "String",
+            "value" : ""
+          }
+        ],
+        "type" : "BootstrapPanelBody",
+        "typeDesc" : "Panel Body"
+      },
+      {
+        "id" : "b17e0559-1cf6-11c8-7ff5-32996afb1f7e",
+        "type" : "LayoutRow",
+        "typeDesc" : "Row",
+        "parent" : "d5039139-da3d-4b30-1605-e1a1e7847f66",
+        "properties" : [
+          {
+            "name" : "name",
+            "value" : "",
+            "type" : "Id"
+          },
+          {
+            "name" : "height",
+            "value" : "",
+            "type" : "Integer"
+          },
+          {
+            "name" : "backgroundColor",
+            "value" : "",
+            "type" : "Color"
+          },
+          {
+            "name" : "roundCorners",
+            "value" : "",
+            "type" : "RoundCorners"
+          },
+          {
+            "name" : "textAlign",
+            "value" : "",
+            "type" : "TextAlign"
+          },
+          {
+            "name" : "cssClass",
+            "value" : "",
+            "type" : "String"
+          }
+        ]
+      },
+      {
+        "id" : "f2372ba3-4334-0995-6b58-404748254ecc",
+        "type" : "LayoutBootstrapColumn",
+        "typeDesc" : "Column",
+        "parent" : "b17e0559-1cf6-11c8-7ff5-32996afb1f7e",
+        "properties" : [
+          {
+            "name" : "name",
+            "value" : "pieChartObject",
+            "type" : "Id"
+          },
+          {
+            "name" : "bootstrapExtraSmall",
+            "value" : "12",
+            "type" : "String"
+          },
+          {
+            "name" : "bootstrapSmall",
+            "value" : "",
+            "type" : "String"
+          },
+          {
+            "name" : "bootstrapMedium",
+            "value" : "",
+            "type" : "String"
+          },
+          {
+            "name" : "bootstrapLarge",
+            "value" : "",
+            "type" : "String"
+          },
+          {
+            "name" : "bootstrapCssClass",
+            "value" : "",
+            "type" : "String"
+          },
+          {
+            "name" : "height",
+            "value" : "",
+            "type" : "Integer"
+          },
+          {
+            "name" : "backgroundColor",
+            "value" : "",
+            "type" : "Color"
+          },
+          {
+            "name" : "roundCorners",
+            "value" : "",
+            "type" : "RoundCorners"
+          },
+          {
+            "name" : "textAlign",
+            "value" : "",
+            "type" : "TextAlign"
+          },
+          {
+            "name" : "cssClass",
+            "value" : "",
+            "type" : "String"
+          }
+        ]
+      },
+      {
+        "id" : "939f105c-f3c4-a6d1-24a2-c422a01d1303",
+        "parent" : "3a1ef6d2-f503-aa52-b897-3628d1ef15b9",
+        "properties" : [
+          {
+            "name" : "name",
+            "type" : "Id",
+            "value" : ""
+          },
+          {
+            "name" : "roundCorners",
+            "type" : "RoundCorners",
+            "value" : ""
+          },
+          {
+            "name" : "textAlign",
+            "type" : "TextAlign",
+            "value" : ""
+          },
+          {
+            "name" : "cssClass",
+            "type" : "String",
+            "value" : ""
+          }
+        ],
+        "type" : "BootstrapPanelFooter",
+        "typeDesc" : "Panel Footer"
+      },
+      {
+        "id" : "2572bba8-f26f-2da8-5425-5530fb3fb13f",
+        "parent" : "UnIqEiD",
+        "properties" : [
+          {
+            "name" : "name",
+            "type" : "Id",
+            "value" : "table_row"
+          },
+          {
+            "name" : "height",
+            "type" : "Integer",
+            "value" : ""
+          },
+          {
+            "name" : "roundCorners",
+            "type" : "RoundCorners",
+            "value" : ""
+          },
+          {
+            "name" : "cssClass",
+            "type" : "String",
+            "value" : ""
+          },
+          {
+            "name" : "bootstrapPanelStyle",
+            "type" : "bootstrapPanelStyleCustom",
+            "value" : "panel-default"
+          }
+        ],
+        "type" : "BootstrapPanel",
+        "typeDesc" : "Bootstrap Panel"
+      },
+      {
+        "id" : "0e865900-3f44-478f-3e98-07914f8bc536",
+        "parent" : "2572bba8-f26f-2da8-5425-5530fb3fb13f",
+        "properties" : [
+          {
+            "name" : "name",
+            "type" : "Id",
+            "value" : ""
+          },
+          {
+            "name" : "roundCorners",
+            "type" : "RoundCorners",
+            "value" : ""
+          },
+          {
+            "name" : "textAlign",
+            "type" : "TextAlign",
+            "value" : ""
+          },
+          {
+            "name" : "cssClass",
+            "type" : "String",
+            "value" : ""
+          }
+        ],
+        "type" : "BootstrapPanelHeader",
+        "typeDesc" : "Panel Header"
+      },
+      {
+        "id" : "5d29dea1-01d3-89b5-8ce9-ae366859653f",
+        "parent" : "2572bba8-f26f-2da8-5425-5530fb3fb13f",
+        "properties" : [
+          {
+            "name" : "name",
+            "type" : "Id",
+            "value" : ""
+          },
+          {
+            "name" : "roundCorners",
+            "type" : "RoundCorners",
+            "value" : ""
+          },
+          {
+            "name" : "textAlign",
+            "type" : "TextAlign",
+            "value" : ""
+          },
+          {
+            "name" : "cssClass",
+            "type" : "String",
+            "value" : ""
+          }
+        ],
+        "type" : "BootstrapPanelBody",
+        "typeDesc" : "Panel Body"
+      },
+      {
+        "id" : "27c5c8e3-a232-915b-3218-91e49ed22ae6",
+        "parent" : "5d29dea1-01d3-89b5-8ce9-ae366859653f",
+        "properties" : [
+          {
+            "name" : "name",
+            "type" : "Id",
+            "value" : ""
+          },
+          {
+            "name" : "height",
+            "type" : "Integer",
+            "value" : ""
+          },
+          {
+            "name" : "backgroundColor",
+            "type" : "Color",
+            "value" : ""
+          },
+          {
+            "name" : "roundCorners",
+            "type" : "RoundCorners",
+            "value" : ""
+          },
+          {
+            "name" : "textAlign",
+            "type" : "TextAlign",
+            "value" : ""
+          },
+          {
+            "name" : "cssClass",
+            "type" : "String",
+            "value" : ""
+          }
+        ],
+        "type" : "LayoutRow",
+        "typeDesc" : "Row"
+      },
+      {
+        "id" : "244cd174-502b-a336-020f-aa97c8711408",
+        "parent" : "27c5c8e3-a232-915b-3218-91e49ed22ae6",
+        "properties" : [
+          {
+            "name" : "name",
+            "type" : "Id",
+            "value" : "tableObject"
+          },
+          {
+            "name" : "bootstrapExtraSmall",
+            "type" : "String",
+            "value" : "12"
+          },
+          {
+            "name" : "bootstrapSmall",
+            "type" : "String",
+            "value" : ""
+          },
+          {
+            "name" : "bootstrapMedium",
+            "type" : "String",
+            "value" : ""
+          },
+          {
+            "name" : "bootstrapLarge",
+            "type" : "String",
+            "value" : ""
+          },
+          {
+            "name" : "bootstrapCssClass",
+            "type" : "String",
+            "value" : ""
+          },
+          {
+            "name" : "height",
+            "type" : "Integer",
+            "value" : ""
+          },
+          {
+            "name" : "backgroundColor",
+            "type" : "Color",
+            "value" : ""
+          },
+          {
+            "name" : "roundCorners",
+            "type" : "RoundCorners",
+            "value" : ""
+          },
+          {
+            "name" : "textAlign",
+            "type" : "TextAlign",
+            "value" : ""
+          },
+          {
+            "name" : "cssClass",
+            "type" : "String",
+            "value" : ""
+          }
+        ],
+        "type" : "LayoutBootstrapColumn",
+        "typeDesc" : "Column"
+      },
+      {
+        "id" : "22ed79b6-722d-f812-93fa-4eeac04484aa",
+        "parent" : "2572bba8-f26f-2da8-5425-5530fb3fb13f",
+        "properties" : [
+          {
+            "name" : "name",
+            "type" : "Id",
+            "value" : ""
+          },
+          {
+            "name" : "roundCorners",
+            "type" : "RoundCorners",
+            "value" : ""
+          },
+          {
+            "name" : "textAlign",
+            "type" : "TextAlign",
+            "value" : ""
+          },
+          {
+            "name" : "cssClass",
+            "type" : "String",
+            "value" : ""
+          }
+        ],
+        "type" : "BootstrapPanelFooter",
+        "typeDesc" : "Panel Footer"
+      }
+    ],
+    "title" : "home"
+  }
+}

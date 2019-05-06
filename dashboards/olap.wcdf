@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cdf><title>Cubo OLAP</title><description>Clean Dashboard</description><author></author><style>novilhomsbi - (novilho-bi-plugin)</style><rendererType>bootstrap</rendererType><require>true</require><widget>false</widget><widgetName></widgetName><widgetParameters></widgetParameters></cdf>

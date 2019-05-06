@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CDADescriptor>
+   <DataSources>
+      <Connection id="dummy" type="sql.jndi">
+         <Jndi/>
+      </Connection>
+      <Connection id="ds_year_filter" type="mondrian.jndi">
+         <Catalog>mondrian:/SteelWheels</Catalog>
+         <Jndi>SampleData</Jndi>
+      </Connection>
+      <Connection id="ds_column_chart" type="mondrian.jndi">
+         <Catalog>mondrian:/SteelWheels</Catalog>
+         <Jndi>SampleData</Jndi>
+      </Connection>
+      <Connection id="ds_pie_chart" type="mondrian.jndi">
+         <Catalog>mondrian:/SteelWheels</Catalog>
+         <Jndi>SampleData</Jndi>
+      </Connection>
+      <Connection id="ds_table" type="mondrian.jndi">
+         <Catalog>mondrian:/SteelWheels</Catalog>
+         <Jndi>SampleData</Jndi>
+      </Connection>
+   </DataSources>
+   <DataAccess access="public" connection="dummy" id="dummy" type="sql">
+      <Name>dummy</Name>
+      <Cache duration="3600" enabled="true"/>
+      <Columns/>
+      <Parameters/>
+      <Query/>
+   </DataAccess>
+   <DataAccess access="public" connection="ds_year_filter" id="ds_year_filter" type="mdx">
+      <Name>ds_year_filter</Name>
+      <BandedMode>compact</BandedMode>
+      <Cache duration="3600" enabled="true"/>
+      <Columns/>
+      <Output indexes="1,0" mode="include"/>
+      <Parameters/>
+      <Query><![CDATA[WITH
+MEMBER [Measures].[UNIQUE MEMBER] AS [Time].currentMember.uniqueName
+SET [~ROWS] AS
+    {[Time].[Years].Members}
+SELECT
+NON EMPTY {[Measures].[UNIQUE MEMBER]} ON COLUMNS,
+NON EMPTY [~ROWS] ON ROWS
+FROM [SteelWheelsSales]]]></Query>
+   </DataAccess>
+   <DataAccess access="public" connection="ds_column_chart" id="ds_column_chart" type="mdx">
+      <Name>ds_column_chart</Name>
+      <BandedMode>compact</BandedMode>
+      <Cache duration="3600" enabled="true"/>
+      <Columns/>
+      <Parameters>
+         <Parameter default="" name="YEAR" type="String"/>
+      </Parameters>
+      <Query><![CDATA[WITH
+SET [~ROWS] AS
+    {[Markets].[Country].Members}
+SELECT
+NON EMPTY {[Measures].[Quantity]} ON COLUMNS,
+NON EMPTY [~ROWS] ON ROWS
+FROM [SteelWheelsSales]
+WHERE 
+    ({${YEAR}})]]></Query>
+   </DataAccess>
+   <DataAccess access="public" connection="ds_pie_chart" id="ds_pie_chart" type="mdx">
+      <Name>ds_pie_chart</Name>
+      <BandedMode>compact</BandedMode>
+      <Cache duration="3600" enabled="true"/>
+      <Columns/>
+      <Parameters>
+         <Parameter default="" name="YEAR" type="String"/>
+      </Parameters>
+      <Query><![CDATA[WITH
+SET [~ROWS] AS
+    {[Product].[Line].Members}
+SELECT
+NON EMPTY {[Measures].[Quantity]} ON COLUMNS,
+NON EMPTY [~ROWS] ON ROWS
+FROM [SteelWheelsSales]
+WHERE 
+    ({${YEAR}})]]></Query>
+   </DataAccess>
+   <DataAccess access="public" connection="ds_table" id="ds_table" type="mdx">
+      <Name>ds_table</Name>
+      <BandedMode>compact</BandedMode>
+      <Cache duration="3600" enabled="true"/>
+      <Columns/>
+      <Parameters>
+         <Parameter default="" name="YEAR" type="String"/>
+      </Parameters>
+      <Query><![CDATA[WITH
+SET [~ROWS_Time_Time] AS
+    {${YEAR}}
+SET [~ROWS_Markets_Markets] AS
+    {[Markets].[Territory].Members}
+SET [~ROWS_Product_Product] AS
+    {[Product].[Line].Members}
+SELECT
+NON EMPTY {[Measures].[Quantity], [Measures].[Sales]} ON COLUMNS,
+NON EMPTY NonEmptyCrossJoin([~ROWS_Time_Time], NonEmptyCrossJoin([~ROWS_Markets_Markets], [~ROWS_Product_Product])) ON ROWS
+FROM [SteelWheelsSales]]]></Query>
+   </DataAccess>
+</CDADescriptor>
