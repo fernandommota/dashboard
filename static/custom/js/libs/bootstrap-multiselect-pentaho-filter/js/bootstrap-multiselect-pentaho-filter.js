@@ -18,17 +18,19 @@ require.config({
     "cdf/lib/jquery": {
       exports: "$"
     },
-    "bootstrap-multiselect-knockout": {
-      exports: "ko"
-    },
     "cdf/Dashboard.Bootstrap": {
       deps: ["cdf/lib/jquery"]
     },
-    "bootstrap-multiselect": {
+    "bootstrap-multiselect-knockout": {
+      exports: "ko",
       deps: [
         "css!bootstrap-multiselect-css",
         "cdf/Dashboard.Bootstrap",
-        "cdf/lib/jquery",
+        "cdf/lib/jquery"
+      ]
+    },
+    "bootstrap-multiselect": {
+      deps: [
         "bootstrap-multiselect-knockout"
       ]
     }
